@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
-class commonElevatedButton extends StatelessWidget {
-  const commonElevatedButton({
+class CommonElevatedButton extends StatelessWidget {
+  const CommonElevatedButton({
     super.key, required this.title, required this.onTap,
   });
 

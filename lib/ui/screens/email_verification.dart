@@ -1,9 +1,10 @@
-import 'package:ecommerce/ui/utils/app_colors.dart';
+import 'package:ecommerce/ui/screens/otp_verification_screen.dart';
 import 'package:ecommerce/ui/utils/styles.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/commonElevatedButton.dart';
 import '../widgets/commonTextField.dart';
+import 'package:get/get.dart';
 
 class EmailVerification extends StatefulWidget {
   const EmailVerification({Key? key}) : super(key: key);
@@ -42,7 +43,7 @@ class _EmailVerificationState extends State<EmailVerification> {
             const SizedBox(
               height: 16,
             ),
-            commonTextField(
+            CommonTextField(
               controller: TextEditingController(),
               validator: (String? value) {},
               hintText: 'Email Address',
@@ -51,10 +52,13 @@ class _EmailVerificationState extends State<EmailVerification> {
             const SizedBox(
               height: 16,
             ),
-            commonElevatedButton(
+            CommonElevatedButton(
               title: 'Next',
-              onTap: () {},
-            )
+              onTap: () {
+                Get.to(const OTPVerificationScreen());
+              },
+            ),
+
           ],
         ),
       ),

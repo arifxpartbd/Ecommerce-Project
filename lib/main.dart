@@ -1,8 +1,7 @@
 
+import 'package:ecommerce/ui/screens/complet_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'ui/screens/email_verification.dart';
-import 'ui/screens/splash_screen.dart';
 
 void main(){
   runApp(const CraftyBay());
@@ -14,7 +13,7 @@ class CraftyBay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const GetMaterialApp(
-      home: EmailVerification(),
+      home: CompleteProfileScreen(),
     );
   }
 
