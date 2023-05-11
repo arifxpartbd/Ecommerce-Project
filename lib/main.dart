@@ -1,5 +1,4 @@
-
-import 'package:ecommerce/ui/screens/complet_profile_screen.dart';
+import 'package:ecommerce/ui/screens/splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,9 +11,19 @@ class CraftyBay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GetMaterialApp(
-      home: CompleteProfileScreen(),
+    return GetMaterialApp(
+      home: const SplashScreen(),
+
+      theme: ThemeData(
+        appBarTheme: const AppBarTheme(
+          color: Colors.white,
+          elevation: 1
+        ),
+      ),
     );
   }
 
 }
+
+
+//live class 46, watch time : 1:09:23

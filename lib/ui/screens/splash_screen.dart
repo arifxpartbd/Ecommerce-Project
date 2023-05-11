@@ -1,3 +1,4 @@
+import 'package:ecommerce/ui/screens/bottom_nav_bar_screen.dart';
 import 'package:ecommerce/ui/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,7 +20,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Future.delayed(
       const Duration(seconds: 3),
     ).then((value) {
-      Get.to(const HomeScreen());
+      Get.off(const BottomNavBarScreen());
     });
   }
 

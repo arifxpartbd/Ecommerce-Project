@@ -3,7 +3,6 @@ import 'package:ecommerce/ui/widgets/commonElevatedButton.dart';
 import 'package:ecommerce/ui/widgets/commonTextField.dart';
 import 'package:flutter/material.dart';
 
-
 class CompleteProfileScreen extends StatefulWidget {
   const CompleteProfileScreen({Key? key}) : super(key: key);
 
@@ -44,7 +43,6 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-
                 CommonTextField(
                   controller: TextEditingController(),
                   validator: (value) {},
@@ -87,12 +85,9 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 const SizedBox(
                   height: 16,
                 ),
-
                 CommonElevatedButton(
-                    title: "Complete",
-                    onTap: (){
-
-                    },
+                  title: "Complete",
+                  onTap: () {},
                 )
               ],
             ),
