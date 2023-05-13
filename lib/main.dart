@@ -22,8 +22,7 @@ class CraftyBay extends StatelessWidget {
       ),
     );
   }
-
 }
 
 
-//live class 46, watch time : 1:09:23
+//live class 47, watch time : 46:10
