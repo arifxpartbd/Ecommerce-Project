@@ -26,7 +26,7 @@ class RemarkTitleWidget extends StatelessWidget {
           ),
         ),
         TextButton(
-          onPressed: () {},
+          onPressed: onTapSeeAll,
           child: const Text(
             "See All",
             style: TextStyle(

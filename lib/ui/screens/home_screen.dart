@@ -1,4 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce/ui/state_managment/bottom_navigation_bar_controller.dart';
 import 'package:flutter/material.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
@@ -6,6 +7,7 @@ import '../widgets/home/home_carousel_widget.dart';
 import '../widgets/home/remark_title_widget.dart';
 import '../widgets/home/search_text_field.dart';
 import '../widgets/product_card.dart';
+import 'package:get/get.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -53,12 +55,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 height: 16,
               ),
               HomeCarouselWidget(
-                carouselController: _carouselController,
-                currentCarouselIndex: _currentCarouselIndex,
+
               ),
               RemarkTitleWidget(
                 remarkName: 'Categories',
-                onTapSeeAll: () {},
+                onTapSeeAll: () {
+                  Get.find<BottomNavigationBarController>().changeIndex(1);
+                },
               ),
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,

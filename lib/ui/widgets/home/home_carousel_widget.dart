@@ -5,21 +5,16 @@ import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 
 class HomeCarouselWidget extends StatelessWidget {
-  const HomeCarouselWidget({
+   HomeCarouselWidget({
     super.key,
-    required CarouselController carouselController,
-    required ValueNotifier<int> currentCarouselIndex,
-  }) : _carouselController = carouselController, _currentCarouselIndex = currentCarouselIndex;
-
-  final CarouselController _carouselController;
-  final ValueNotifier<int> _currentCarouselIndex;
+  });
+  final ValueNotifier<int> _currentCarouselIndex = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         CarouselSlider(
-          carouselController: _carouselController,
           options: CarouselOptions(
               height: 180.0,
               viewportFraction: 1,
