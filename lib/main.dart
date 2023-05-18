@@ -39,4 +39,4 @@ class GetxBindings extends Bindings{
 }
 
 
-//live class 51, watch time : 52:48
+//live class 51, watch time : -9:45

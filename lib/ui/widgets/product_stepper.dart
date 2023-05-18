@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
 
-class ProductStepper extends StatefulWidget{
+class ProductStepper extends StatefulWidget {
   const ProductStepper({super.key});
 
   @override
@@ -10,9 +10,9 @@ class ProductStepper extends StatefulWidget{
 }
 
 class _ProductStepperState extends State<ProductStepper> {
-
   var _currentValue = 0;
-  final TextEditingController _steperTextController = TextEditingController(text: "1");
+  final TextEditingController _steperTextController =
+      TextEditingController(text: "1");
 
   @override
   Widget build(BuildContext context) {
@@ -20,44 +20,53 @@ class _ProductStepperState extends State<ProductStepper> {
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        ElevatedButton(
-          onPressed: () {
-            if (_currentValue > 1) {
-              _currentValue--;
-              _steperTextController.text = _currentValue.toString();
-              setState(() {});
-            }
-          },
-          style:
-          ElevatedButton.styleFrom(backgroundColor: primaryColor,fixedSize: const Size(30,30),),
-          child: const Icon(Icons.remove),
-        ),
+        stepperButton(() {
+          if (_currentValue > 1) {
+            _currentValue--;
+            _steperTextController.text = _currentValue.toString();
+            setState(() {});
+          }
+        }, Icons.remove),
         SizedBox(
           width: 50,
+          //height: 50,
           child: TextField(
             controller: _steperTextController,
             enabled: false,
-            style:
-            const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             decoration: const InputDecoration(
-                border: OutlineInputBorder(
-                  borderSide: BorderSide.none,
-                )),
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+              ),
+            ),
           ),
         ),
-        ElevatedButton(
-          onPressed: () {
-            if (_currentValue < 20) {
-              _currentValue++;
-              _steperTextController.text = _currentValue.toString();
-              setState(() {});
-            }
-          },
-          style:
-          ElevatedButton.styleFrom(backgroundColor: primaryColor, fixedSize: const Size(30, 30),),
-          child: const Icon(Icons.add),
-        ),
+        stepperButton(() {
+          if (_currentValue < 20) {
+            _currentValue++;
+            _steperTextController.text = _currentValue.toString();
+            setState(() {});
+          }
+        }, Icons.add),
       ],
+    );
+  }
+
+  Widget stepperButton(VoidCallback onTap, IconData iconData) {
+    return SizedBox(
+      width: 30,
+      height: 30,
+      child: InkWell(
+        onTap: onTap,
+        child: Container(
+          decoration: BoxDecoration(
+              color: primaryColor, borderRadius: BorderRadius.circular(5)),
+          child: Icon(
+            iconData,
+            color: Colors.white,
+          ),
+        ),
+      ),
     );
   }
 }
