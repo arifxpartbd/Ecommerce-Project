@@ -52,7 +52,7 @@ class _EmailVerificationState extends State<EmailVerification> {
                 CommonTextField(
                   controller: _emailETController,
                   validator: (String? value) {
-                    if(value?.isEmpty ?? true){
+                    if (value?.isEmpty ?? true) {
                       return "Enter a valid email address";
                     }
                     return null;
@@ -68,12 +68,15 @@ class _EmailVerificationState extends State<EmailVerification> {
                     : CommonElevatedButton(
                         title: 'Next',
                         onTap: () async {
-                          if(_formKey.currentState!.validate()) {
+                          if (_formKey.currentState!.validate()) {
                             final bool response = await authController
                                 .emailVerification(_emailETController.text);
 
                             if (response) {
-                              Get.to(const OTPVerificationScreen());
+                              Get.to(
+                                OTPVerificationScreen(
+                                    email: _emailETController.text),
+                              );
                             } else {
                               if (mounted) {
                                 ScaffoldMessenger.of(context).showSnackBar(
