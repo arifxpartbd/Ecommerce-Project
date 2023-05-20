@@ -14,9 +14,10 @@ class NetworkCaller {
     try {
       final Response response = await get(
         Uri.parse(
-          Urls.baseUrl,
+          Urls.baseUrl + url,
         ),
       );
+      log(response.body);
 
       if (response.statusCode == 200) {
         return ResponseModel(

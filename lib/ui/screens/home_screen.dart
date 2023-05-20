@@ -1,4 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce/ui/screens/email_verification.dart';
 import 'package:ecommerce/ui/state_managment/bottom_navigation_bar_controller.dart';
 import 'package:flutter/material.dart';
 import '../widgets/category_card_widget.dart';
@@ -17,8 +17,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final CarouselController _carouselController = CarouselController();
-  final ValueNotifier<int> _currentCarouselIndex = ValueNotifier(0);
+  // final CarouselController _carouselController = CarouselController();
+  // final ValueNotifier<int> _currentCarouselIndex = ValueNotifier(0);
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +32,9 @@ class _HomeScreenState extends State<HomeScreen> {
             const Spacer(),
             AppBarIconButton(
               iconData: Icons.person,
-              onTap: () {},
+              onTap: () {
+                Get.to(const EmailVerification());
+              },
             ),
             AppBarIconButton(
               iconData: Icons.call,
