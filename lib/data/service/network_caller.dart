@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:ecommerce/data/models/response_model.dart';
+import 'package:ecommerce/ui/state_managment/auth_controller.dart';
 import 'package:http/http.dart';
 
 import '../utils/urls.dart';
@@ -14,8 +15,10 @@ class NetworkCaller {
     try {
       final Response response = await get(
         Uri.parse(
-          Urls.baseUrl + url,
-        ),
+          Urls.baseUrl + url),
+        headers:{"Content-Type": "application/json",
+          "Accept": "application/json",
+          "token": AuthController.token.toString()}
       );
       log(response.body);
 

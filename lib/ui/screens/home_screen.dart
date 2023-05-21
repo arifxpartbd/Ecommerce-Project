@@ -1,5 +1,8 @@
 import 'package:ecommerce/ui/screens/email_verification.dart';
+import 'package:ecommerce/ui/screens/profile_screen.dart';
+import 'package:ecommerce/ui/state_managment/auth_controller.dart';
 import 'package:ecommerce/ui/state_managment/bottom_navigation_bar_controller.dart';
+import 'package:ecommerce/ui/state_managment/home_controller.dart';
 import 'package:flutter/material.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
@@ -33,7 +36,14 @@ class _HomeScreenState extends State<HomeScreen> {
             AppBarIconButton(
               iconData: Icons.person,
               onTap: () {
-                Get.to(const EmailVerification());
+                Get.find<AuthController>().isLoggedIn().then((value) {
+                  if(!value){
+                    Get.to(const EmailVerification());
+                  }else{
+                   Get.to(const ProfileScreen());
+                  }
+                });
+
               },
             ),
             AppBarIconButton(
@@ -56,8 +66,16 @@ class _HomeScreenState extends State<HomeScreen> {
               const SizedBox(
                 height: 16,
               ),
-              HomeCarouselWidget(
+              GetBuilder<HomeController>(
+                builder: (homeController) {
+                  if(homeController.getSliderInProgress){
+                    return const CircularProgressIndicator();
+                  }
+                  return HomeCarouselWidget(
+                    homeSliderModel: homeController.homeSliderModel,
 
+                  );
+                }
               ),
               RemarkTitleWidget(
                 remarkName: 'Categories',

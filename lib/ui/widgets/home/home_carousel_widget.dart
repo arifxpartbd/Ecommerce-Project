@@ -1,14 +1,13 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:ecommerce/data/models/home_slider_model.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/app_colors.dart';
 
 class HomeCarouselWidget extends StatelessWidget {
-   HomeCarouselWidget({
-    super.key,
-  });
+  final HomeSliderModel homeSliderModel;
   final ValueNotifier<int> _currentCarouselIndex = ValueNotifier(0);
+
+  HomeCarouselWidget({super.key, required this.homeSliderModel});
 
   @override
   Widget build(BuildContext context) {
@@ -19,55 +18,63 @@ class HomeCarouselWidget extends StatelessWidget {
               height: 180.0,
               viewportFraction: 1,
               autoPlay: true,
-              onPageChanged: (index, _){
+              onPageChanged: (index, _) {
                 _currentCarouselIndex.value = index;
               },
+              autoPlayAnimationDuration: const Duration(seconds: 2),
               autoPlayInterval: const Duration(
-                seconds: 4,
+                seconds: 6,
               )),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: homeSliderModel.sliders!.map((i) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),
                     decoration: BoxDecoration(
-                      color: Colors.amber,
+                      color: primaryColor,
                       borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        image: NetworkImage(
+                         i.image ?? ""
+                        )
+                      )
                     ),
                     alignment: Alignment.center,
-                    child: Text(
-                      'text $i',
-                      style: const TextStyle(fontSize: 16.0),
-                    ));
+                    // child: Text(
+                    //   'text $i',
+                    //   style: const TextStyle(fontSize: 16.0),
+                    // ),
+                );
               },
             );
           }).toList(),
         ),
-        const SizedBox(height: 6,),
+        const SizedBox(
+          height: 6,
+        ),
         ValueListenableBuilder(
             valueListenable: _currentCarouselIndex,
             builder: (context, currentValue, _) {
               return Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  for(int i = 0; i <5; i++)
+                  for (int i = 0; i < (homeSliderModel.sliders?.length ?? 0); i++)
                     Padding(
                       padding: const EdgeInsets.all(2.0),
-                      child:  Container(
+                      child: Container(
                         height: 15,
                         width: 15,
                         decoration: BoxDecoration(
-                            color: currentValue == i? primaryColor : null,
-                            border: Border.all(color: greyColor.withOpacity(.5)),
-                            borderRadius: BorderRadius.circular(10)
-                        ),
+                            color: currentValue == i ? primaryColor : null,
+                            border:
+                                Border.all(color: greyColor.withOpacity(.5)),
+                            borderRadius: BorderRadius.circular(10)),
                       ),
                     ),
                 ],
               );
-            }
-        ),
+            }),
       ],
     );
   }

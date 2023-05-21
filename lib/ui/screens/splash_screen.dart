@@ -1,5 +1,7 @@
 import 'package:ecommerce/ui/screens/bottom_nav_bar_screen.dart';
+import 'package:ecommerce/ui/screens/email_verification.dart';
 import 'package:ecommerce/ui/screens/home_screen.dart';
+import 'package:ecommerce/ui/state_managment/auth_controller.dart';
 import 'package:flutter/material.dart';
 
 import '../utils/app_colors.dart';
@@ -18,9 +20,15 @@ class _SplashScreenState extends State<SplashScreen> {
     // TODO: implement initState
     super.initState();
     Future.delayed(
-      const Duration(seconds: 3),
-    ).then((value) {
-      Get.off(BottomNavBarScreen());
+      const Duration(seconds: 1),
+    ).then((value) async{
+      final bool loginState = await Get.find<AuthController>().isLoggedIn();
+      if(loginState){
+        Get.off(BottomNavBarScreen());
+      }else{
+        Get.off(EmailVerification());
+      }
+
     });
   }
 
