@@ -2,8 +2,10 @@ import 'package:ecommerce/ui/screens/email_verification.dart';
 import 'package:ecommerce/ui/screens/profile_screen.dart';
 import 'package:ecommerce/ui/state_managment/auth_controller.dart';
 import 'package:ecommerce/ui/state_managment/bottom_navigation_bar_controller.dart';
+import 'package:ecommerce/ui/state_managment/category_controller.dart';
 import 'package:ecommerce/ui/state_managment/home_controller.dart';
 import 'package:flutter/material.dart';
+import '../state_managment/product_by_remark_controller.dart';
 import '../widgets/category_card_widget.dart';
 import '../widgets/home/app_bar_icon_button.dart';
 import '../widgets/home/home_carousel_widget.dart';
@@ -37,13 +39,12 @@ class _HomeScreenState extends State<HomeScreen> {
               iconData: Icons.person,
               onTap: () {
                 Get.find<AuthController>().isLoggedIn().then((value) {
-                  if(!value){
+                  if (!value) {
                     Get.to(const EmailVerification());
-                  }else{
-                   Get.to(const ProfileScreen());
+                  } else {
+                    Get.to(const ProfileScreen());
                   }
                 });
-
               },
             ),
             AppBarIconButton(
@@ -61,53 +62,48 @@ class _HomeScreenState extends State<HomeScreen> {
         padding: const EdgeInsets.all(16.0),
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SearchTextField(),
               const SizedBox(
                 height: 16,
               ),
-              GetBuilder<HomeController>(
-                builder: (homeController) {
-                  if(homeController.getSliderInProgress){
-                    return const CircularProgressIndicator();
-                  }
-                  return HomeCarouselWidget(
-                    homeSliderModel: homeController.homeSliderModel,
-
-                  );
+              GetBuilder<HomeController>(builder: (homeController) {
+                if (homeController.getSliderInProgress) {
+                  return const CircularProgressIndicator();
                 }
-              ),
+                return HomeCarouselWidget(
+                  homeSliderModel: homeController.homeSliderModel,
+                );
+              }),
               RemarkTitleWidget(
                 remarkName: 'Categories',
                 onTapSeeAll: () {
                   Get.find<BottomNavigationBarController>().changeIndex(1);
                 },
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: const [
-                    CategoryCart(
-                      categoryName: 'Computer',
-                    ),
-                    CategoryCart(
-                      categoryName: 'Electronics',
-                    ),
-                    CategoryCart(
-                      categoryName: 'Clothes',
-                    ),
-                    CategoryCart(
-                      categoryName: 'Computer',
-                    ),
-                    CategoryCart(
-                      categoryName: 'Computer',
-                    ),
-                    CategoryCart(
-                      categoryName: 'Computer',
-                    ),
-                  ],
-                ),
-              ),
+              GetBuilder<CategoryController>(builder: (categoryController) {
+                if (categoryController.getCategoryInProgress) {
+                  return const CircularProgressIndicator();
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: categoryController.categoryModelData.categoryData!
+                        .map(
+                          (e) => CategoryCart(
+                            id: e.id ?? 0,
+                            categoryName: e.categoryName.toString(),
+                            imageUrl: e.categoryImg.toString(),
+                          ),
+                        )
+                        .toList(),
+                  ),
+                );
+              }),
+
+
               RemarkTitleWidget(
                 remarkName: 'Popular',
                 onTapSeeAll: () {},
@@ -116,40 +112,88 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: const [
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
+                    // ProductCard(),
+                    // ProductCard(),
+                    // ProductCard(),
                   ],
                 ),
               ),
+              GetBuilder<ProductByRemarkController>(
+                  builder: (productbyRemarkController) {
+                if (productbyRemarkController.getPopularProductByRemarkInProgress) {
+                  return const CircularProgressIndicator();
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: productbyRemarkController.productByRemarkModel.products!
+                        .map(
+                          (e) => ProductCard(
+                            product: e,
+
+                          )
+                        )
+                        .toList(),
+                  ),
+                );
+              }),
+
+
+
               RemarkTitleWidget(
                 remarkName: 'Special',
                 onTapSeeAll: () {},
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: const [
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                  ],
-                ),
-              ),
+              GetBuilder<ProductByRemarkController>(
+                  builder: (productbyRemarkController) {
+                    if (productbyRemarkController.getSpecialProductByRemarkInProgress) {
+                      return const CircularProgressIndicator();
+                    }
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: productbyRemarkController.specialproductByRemarkModel.products!
+                            .map(
+                                (e) => ProductCard(
+                              product: e,
+
+                            )
+                        )
+                            .toList(),
+                      ),
+                    );
+                  }),
+
+
+
+
               RemarkTitleWidget(
                 remarkName: 'New',
                 onTapSeeAll: () {},
               ),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: const [
-                    ProductCard(),
-                    ProductCard(),
-                    ProductCard(),
-                  ],
-                ),
-              )
+              GetBuilder<ProductByRemarkController>(
+                  builder: (productbyRemarkController) {
+                    if (productbyRemarkController.getNewProductByRemarkInProgress) {
+                      return const CircularProgressIndicator();
+                    }
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: productbyRemarkController.newproductByRemarkModel.products!
+                            .map(
+                                (e) => ProductCard(
+                              product: e,
+
+                            )
+                        )
+                            .toList(),
+                      ),
+                    );
+                  }),
+
             ],
           ),
         ),

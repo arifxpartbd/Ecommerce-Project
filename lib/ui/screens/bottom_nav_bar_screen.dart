@@ -3,7 +3,9 @@ import 'package:ecommerce/ui/screens/category_screen.dart';
 import 'package:ecommerce/ui/screens/home_screen.dart';
 import 'package:ecommerce/ui/screens/wish_list_screen.dart';
 import 'package:ecommerce/ui/state_managment/bottom_navigation_bar_controller.dart';
+import 'package:ecommerce/ui/state_managment/category_controller.dart';
 import 'package:ecommerce/ui/state_managment/home_controller.dart';
+import 'package:ecommerce/ui/state_managment/product_by_remark_controller.dart';
 import 'package:ecommerce/ui/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -26,6 +28,12 @@ class _BottomNavBarScreenState extends State<BottomNavBarScreen> {
   void initState() {
     // TODO: implement initState
     Get.find<HomeController>().getHomeSlider();
+    Get.find<CategoryController>().getCategores();
+    Get.find<ProductByRemarkController>().getPopularProductByRemark();
+    Get.find<ProductByRemarkController>().getNewProductByRemark();
+    Get.find<ProductByRemarkController>().getSpecialProductByRemark();
+
+
     super.initState();
   }
   @override

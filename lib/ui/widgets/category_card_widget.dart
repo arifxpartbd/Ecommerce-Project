@@ -8,14 +8,18 @@ class CategoryCart extends StatelessWidget {
   const CategoryCart({
     super.key,
     required this.categoryName,
+    required this.imageUrl, required this.id,
   });
-  final String categoryName;
+  final String categoryName, imageUrl;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Get.to(ProductListScreen());
+      onTap: () {
+        Get.to(ProductListScreen(
+          categoryId: id,
+        ));
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -25,16 +29,17 @@ class CategoryCart extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                 color: primaryColor.withOpacity(
-                  0.15,
+                  0.1,
                 ),
                 borderRadius: BorderRadius.circular(8),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(16.0),
-                child: Icon(
-                  Icons.computer,
-                  size: 28,
-                  color: primaryColor,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Image.network(
+                  imageUrl,
+                  height: 50,
+                  width: 50,
+                  fit: BoxFit.scaleDown,
                 ),
               ),
             ),

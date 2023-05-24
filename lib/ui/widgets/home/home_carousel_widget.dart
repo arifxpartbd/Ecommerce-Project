@@ -28,6 +28,7 @@ class HomeCarouselWidget extends StatelessWidget {
           items: homeSliderModel.sliders!.map((i) {
             return Builder(
               builder: (BuildContext context) {
+
                 return Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.symmetric(horizontal: 5.0),

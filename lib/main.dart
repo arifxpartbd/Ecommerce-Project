@@ -1,7 +1,10 @@
 import 'package:ecommerce/ui/screens/splash_screen.dart';
 import 'package:ecommerce/ui/state_managment/auth_controller.dart';
 import 'package:ecommerce/ui/state_managment/bottom_navigation_bar_controller.dart';
+import 'package:ecommerce/ui/state_managment/category_controller.dart';
 import 'package:ecommerce/ui/state_managment/home_controller.dart';
+import 'package:ecommerce/ui/state_managment/product_by_remark_controller.dart';
+import 'package:ecommerce/ui/state_managment/product_controller.dart';
 import 'package:ecommerce/ui/state_managment/user_auth_controller.dart';
 import 'package:ecommerce/ui/state_managment/user_profile_controller.dart';
 import 'package:ecommerce/ui/utils/app_colors.dart';
@@ -42,9 +45,12 @@ class GetxBindings extends Bindings{
    Get.put(AuthController());
    Get.put(UserProfileController());
    Get.put(HomeController());
-
+   Get.put(CategoryController());
+   Get.put(ProductByRemarkController());
+   Get.put(ProductController());
   }
 }
 
 
 //live class 51, watch time : -9:45
+//-16.10
