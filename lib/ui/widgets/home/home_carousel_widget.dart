@@ -21,11 +21,11 @@ class HomeCarouselWidget extends StatelessWidget {
               onPageChanged: (index, _) {
                 _currentCarouselIndex.value = index;
               },
-              autoPlayAnimationDuration: const Duration(seconds: 2),
+              //autoPlayAnimationDuration: const Duration(seconds: 2),
               autoPlayInterval: const Duration(
                 seconds: 6,
               )),
-          items: homeSliderModel.sliders!.map((i) {
+          items: (homeSliderModel.sliders?.isEmpty?? true)? []: homeSliderModel.sliders!.map((slider) {
             return Builder(
               builder: (BuildContext context) {
 
@@ -37,7 +37,7 @@ class HomeCarouselWidget extends StatelessWidget {
                       borderRadius: BorderRadius.circular(8),
                       image: DecorationImage(
                         image: NetworkImage(
-                         i.image ?? ""
+                         slider.image ?? ""
                         )
                       )
                     ),

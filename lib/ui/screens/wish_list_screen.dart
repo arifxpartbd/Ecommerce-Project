@@ -14,11 +14,16 @@ class WishListScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Wish List"),
+        //leading: BackButton(),
         leading: IconButton(
           onPressed: (){
             Get.find<BottomNavigationBarController>().backToHome();
+
           },
           icon: Icon(Icons.arrow_back,color: greyColor,),
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black
         ),
       ),
       // body: GridView.builder(

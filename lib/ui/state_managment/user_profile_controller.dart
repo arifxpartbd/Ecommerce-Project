@@ -8,23 +8,29 @@ import 'package:get/get.dart';
 class UserProfileController extends GetxController{
 
   bool _getProfileDataInProgress = false;
-  bool get getProfileDataInProgress =>_getProfileDataInProgress;
+  bool get getProfileDataInProgress => _getProfileDataInProgress;
+
+  ProfileDataModel _profileDataModel = ProfileDataModel();
+
+  ProfileDataModel get profileDataModel => _profileDataModel;
 
   Future<bool> getProfileData()async{
     _getProfileDataInProgress = true;
     update();
 
     final response = await NetworkCaller.getRequest(url: "/ReadProfile");
-
-    _getProfileDataInProgress =false;
-    update();
-
+    _getProfileDataInProgress = false;
+    //update();
     if(response.isSuccess){
-      final ProfileDataModel profileDataModel = ProfileDataModel.fromJson(response.returnData);
-      if(profileDataModel.data != null) {
-        Get.find<AuthController>().saveProfileData(profileDataModel.data!.first);
+      _profileDataModel = ProfileDataModel.fromJson(response.returnData);
+      //update();
+      Get.find<AuthController>().saveProfileData(_profileDataModel.data!.first);
+      //final ProfileDataModel profileDataModel = ProfileDataModel.fromJson(response.returnData);
+      //update();
+      if(_profileDataModel.data!= null) {
+        Get.find<AuthController>().saveProfileData(_profileDataModel.data!.first);
       }else{
-        Get.to(CompleteProfileScreen());
+        Get.to(const CompleteProfileScreen());
       }
       update();
       return true;

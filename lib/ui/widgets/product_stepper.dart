@@ -3,56 +3,63 @@ import 'package:flutter/material.dart';
 import '../utils/app_colors.dart';
 
 class ProductStepper extends StatefulWidget {
-  const ProductStepper({super.key});
+  final Function(int currentValue) onDecrement, onIncrement;
+
+  const ProductStepper(
+      {Key? key, required this.onDecrement, required this.onIncrement})
+      : super(key: key);
 
   @override
   State<ProductStepper> createState() => _ProductStepperState();
 }
 
 class _ProductStepperState extends State<ProductStepper> {
-  var _currentValue = 0;
-  final TextEditingController _steperTextController =
-      TextEditingController(text: "1");
+  int _currentValue = 1;
+  final TextEditingController _stepperTEController =
+  TextEditingController(text: '1');
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Wrap(
-      crossAxisAlignment: WrapCrossAlignment.center,
       children: [
-        stepperButton(() {
-          if (_currentValue > 1) {
-            _currentValue--;
-            _steperTextController.text = _currentValue.toString();
-            setState(() {});
-          }
-        }, Icons.remove),
+        stepperButton(
+          onTap: () {
+            if (_currentValue > 1) {
+              _currentValue--;
+              _stepperTEController.text = _currentValue.toString();
+              widget.onDecrement(_currentValue);
+            }
+          },
+          iconData: Icons.remove,
+        ),
         SizedBox(
           width: 50,
-          //height: 50,
+          height: 30,
           child: TextField(
-            controller: _steperTextController,
+            controller: _stepperTEController,
             enabled: false,
-            style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
             decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-              ),
-            ),
+                border: OutlineInputBorder(borderSide: BorderSide.none)),
           ),
         ),
-        stepperButton(() {
-          if (_currentValue < 20) {
-            _currentValue++;
-            _steperTextController.text = _currentValue.toString();
-            setState(() {});
-          }
-        }, Icons.add),
+        stepperButton(
+          onTap: () {
+            if (_currentValue < 20) {
+              _currentValue++;
+              widget.onIncrement(_currentValue);
+              _stepperTEController.text = _currentValue.toString();
+            }
+          },
+          iconData: Icons.add,
+        ),
       ],
     );
   }
 
-  Widget stepperButton(VoidCallback onTap, IconData iconData) {
+  Widget stepperButton(
+      {required VoidCallback onTap, required IconData iconData}) {
     return SizedBox(
       width: 30,
       height: 30,
@@ -60,9 +67,10 @@ class _ProductStepperState extends State<ProductStepper> {
         onTap: onTap,
         child: Container(
           decoration: BoxDecoration(
-              color: primaryColor, borderRadius: BorderRadius.circular(5)),
+              color: primaryColor, borderRadius: BorderRadius.circular(8)),
           child: Icon(
             iconData,
+            size: 16,
             color: Colors.white,
           ),
         ),

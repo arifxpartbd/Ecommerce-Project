@@ -31,7 +31,6 @@ class _ProductListScreenState extends State<ProductListScreen> {
       ),
       body: GetBuilder<ProductController>(
         builder: (productController) {
-
           if(productController.getProductByCategoryInProgress){
             return const Center(child: CircularProgressIndicator());
           }

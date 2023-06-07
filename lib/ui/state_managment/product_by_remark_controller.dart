@@ -24,11 +24,11 @@ class ProductByRemarkController extends GetxController{
   Future<bool> getPopularProductByRemark()async{
     _getPopularProductByRemarkInProgress = true;
     update();
+
     final response = await NetworkCaller.getRequest(url: "/ListProductByRemark/popular");
+    _getPopularProductByRemarkInProgress = false;
     if(response.isSuccess){
-      update();
       _productByRemarkModel = ProductByCategoryModel.fromJson(response.returnData);
-      _getPopularProductByRemarkInProgress = false;
       update();
       return true;
     }else{
@@ -41,10 +41,9 @@ class ProductByRemarkController extends GetxController{
     _getNewProductByRemarkInProgress = true;
     update();
     final response = await NetworkCaller.getRequest(url: "/ListProductByRemark/new");
+    _getNewProductByRemarkInProgress = false;
     if(response.isSuccess){
-      update();
       _newByRemarkModel = ProductByCategoryModel.fromJson(response.returnData);
-      _getNewProductByRemarkInProgress = false;
       update();
       return true;
     }else{
@@ -57,10 +56,10 @@ class ProductByRemarkController extends GetxController{
     _getSpecialProductByRemarkInProgress = true;
     update();
     final response = await NetworkCaller.getRequest(url: "/ListProductByRemark/special");
+    _getSpecialProductByRemarkInProgress = false;
     if(response.isSuccess){
-      update();
       _specialByRemarkModel = ProductByCategoryModel.fromJson(response.returnData);
-      _getSpecialProductByRemarkInProgress = false;
+
       update();
       return true;
     }else{

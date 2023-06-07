@@ -20,6 +20,8 @@ class OTPVerificationScreen extends StatefulWidget {
 
 class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
   final TextEditingController _otpETController = TextEditingController();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -90,13 +92,15 @@ class _OTPVerificationScreenState extends State<OTPVerificationScreen> {
                               await userAuthController.otpVerification(
                                   widget.email, _otpETController.text);
                           if (response) {
-                            final userresponse = await NetworkCaller.getRequest(url: "/ReadProfile");
-                            if(userresponse.returnData["data"] == []){
-                              Get.to(CompleteProfileScreen());
-                            }else{
-                              Get.to(HomeScreen());
-                            }
+                            // final userresponse = await NetworkCaller.getRequest(url: "/ReadProfile");
+                            // if(userresponse.returnData["data"] == []){
+                            //   Get.to(CompleteProfileScreen());
+                            // }else{
+                            //   Get.to(HomeScreen());
+                            // }
                             //Get.to(CompleteProfileScreen());
+                            Get.to(HomeScreen());
+
 
                           } else {
                             Get.showSnackbar(

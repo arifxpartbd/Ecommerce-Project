@@ -4,11 +4,10 @@ import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 
 class ProductImageCarousel extends StatelessWidget {
-   ProductImageCarousel({
-    super.key,
-
-  });
   final ValueNotifier<int> _currentCarouselIndex = ValueNotifier(0);
+  final List<String> images;
+
+  ProductImageCarousel({super.key, required this.images});
 
   @override
   Widget build(BuildContext context) {
@@ -19,25 +18,26 @@ class ProductImageCarousel extends StatelessWidget {
               height: 200.0,
               viewportFraction: 1,
               autoPlay: true,
-              onPageChanged: (index, _){
+              onPageChanged: (index, _) {
                 _currentCarouselIndex.value = index;
               },
               autoPlayInterval: const Duration(
                 seconds: 4,
               )),
-          items: [1, 2, 3, 4, 5].map((i) {
+          items: images.map((imageUrl) {
             return Builder(
               builder: (BuildContext context) {
                 return Container(
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.withOpacity(0.2),
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.withOpacity(0.2),
+                    image: DecorationImage(
+                      image: NetworkImage(imageUrl),
+                      fit: BoxFit.scaleDown,
                     ),
-                    alignment: Alignment.center,
-                    child: Text(
-                      'text $i',
-                      style: const TextStyle(fontSize: 16.0),
-                    ));
+                  ),
+                  alignment: Alignment.center,
+                );
               },
             );
           }).toList(),
@@ -53,25 +53,26 @@ class ProductImageCarousel extends StatelessWidget {
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        for(int i = 0; i <5; i++)
+                        for (int i = 0; i < images.length; i++)
                           Padding(
                             padding: const EdgeInsets.all(2.0),
-                            child:  Container(
+                            child: Container(
                               height: 10,
                               width: 10,
                               decoration: BoxDecoration(
-                                  color: currentValue == i? primaryColor : Colors.white,
-                                  border: Border.all(color: greyColor.withOpacity(.5)),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                  color: currentValue == i
+                                      ? primaryColor
+                                      : Colors.white,
+                                  border: Border.all(
+                                      color: greyColor.withOpacity(.5)),
+                                  borderRadius: BorderRadius.circular(10)),
                             ),
                           ),
                       ],
                     );
-                  }
-              ),
+                  }),
             ),
-          )
+          ),
         ),
       ],
     );

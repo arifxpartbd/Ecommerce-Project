@@ -16,12 +16,10 @@ class CategoryController extends GetxController{
     update();
     final response = await NetworkCaller.getRequest(url: "/CategoryList");
     if(response.isSuccess){
-      update();
       _getCategoryInProgress = false;
       _categoryModelData = CategoryModelData.fromJson(response.returnData);
       update();
       return true;
-
     }else{
       update();
       return false;
